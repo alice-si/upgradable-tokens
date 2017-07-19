@@ -3,7 +3,7 @@ pragma solidity ^0.4.4;
 import "./GNTAllocation.sol";
 
 /// @title Migration Agent interface
-contract MigrationAgent {
+contract IMigrationAgent {
     function migrateFrom(address _from, uint256 _value);
 }
 
@@ -110,7 +110,7 @@ contract GolemNetworkToken {
         balances[msg.sender] -= _value;
         totalTokens -= _value;
         totalMigrated += _value;
-        MigrationAgent(migrationAgent).migrateFrom(msg.sender, _value);
+        IMigrationAgent(migrationAgent).migrateFrom(msg.sender, _value);
         Migrate(msg.sender, migrationAgent, _value);
     }
 
