@@ -152,10 +152,13 @@ contract Campaign is TokenController, Owned {
             (now>endFundingTime) ||
             (tokenContract.controller() == 0) ||           // Extra check
             (msg.value == 0) ||
-            (totalCollected + msg.value > maximumFunding))
+            (totalCollected + msg.value > maximumFunding)
+        )
         {
             throw;
         }
+        if (now<startFundingTime) throw;
+
 
 //Track how much the Campaign has collected
         totalCollected += msg.value;

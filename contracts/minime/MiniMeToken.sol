@@ -419,7 +419,7 @@ contract MiniMeToken is Controlled {
         if (curTotalSupply + _amount < curTotalSupply) throw; // Check for overflow
         updateValueAtNow(totalSupplyHistory, curTotalSupply + _amount);
         var previousBalanceTo = balanceOf(_owner);
-        if (previousBalanceTo + _amount < previousBalanceTo) throw; // Check for overflow
+        if (previousBalanceTo + _amount < previousBalanceTo) throw; // Check for overflowf
         updateValueAtNow(balances[_owner], previousBalanceTo + _amount);
         Transfer(0, _owner, _amount);
         return true;
