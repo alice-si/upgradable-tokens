@@ -30,18 +30,34 @@ contract('MiniMe Token', function(accounts) {
     assert.equal(total.valueOf(), UNIT, "Total supply is different than 1 unit");
   });
 
-  it("should transfer tokens", async function () {
+  it("should transfer tokens 1.", async function () {
     let tx = await token.transfer(receiver, UNIT, {from : holder});
     let gasUsed = tx.receipt.gasUsed;
-    console.log("First transfer cost: " + gasUsed);
+    console.log("1. transfer cost: " + gasUsed);
     let holderBalance = await token.balanceOf(holder);
     assert.equal(holderBalance.valueOf(), 0, "Holder balance is different than 0");
   });
 
-  it("should transfer tokens", async function () {
+  it("should transfer tokens 2.", async function () {
     let tx = await token.transfer(holder, UNIT, {from : receiver});
     let gasUsed = tx.receipt.gasUsed;
-    console.log("Second transfer cost: " + gasUsed);
+    console.log("2. transfer cost: " + gasUsed);
+    let receiverBalance = await token.balanceOf(receiver);
+    assert.equal(receiverBalance.valueOf(), 0, "Holder balance is different than 0");
+  });
+
+  it("should transfer tokens 3.", async function () {
+    let tx = await token.transfer(receiver, UNIT, {from : holder});
+    let gasUsed = tx.receipt.gasUsed;
+    console.log("3. transfer cost: " + gasUsed);
+    let holderBalance = await token.balanceOf(holder);
+    assert.equal(holderBalance.valueOf(), 0, "Holder balance is different than 0");
+  });
+
+  it("should transfer tokens 4.", async function () {
+    let tx = await token.transfer(holder, UNIT, {from : receiver});
+    let gasUsed = tx.receipt.gasUsed;
+    console.log("4. transfer cost: " + gasUsed);
     let receiverBalance = await token.balanceOf(receiver);
     assert.equal(receiverBalance.valueOf(), 0, "Holder balance is different than 0");
   });
@@ -55,18 +71,34 @@ contract('MiniMe Token', function(accounts) {
     assert.equal(total.valueOf(), UNIT, "Total supply is different than 1 unit");
   });
 
-  it("should transfer tokens after clone", async function () {
+  it("should transfer tokens after clone 1.", async function () {
     let tx = await clone.transfer(receiver, UNIT, {from : holder});
     let gasUsed = tx.receipt.gasUsed;
-    console.log("Transfer after clone cost: " + gasUsed);
+    console.log("1. Transfer after clone cost: " + gasUsed);
     let holderBalance = await clone.balanceOf(holder);
     assert.equal(holderBalance.valueOf(), 0, "Holder balance is different than 0");
   });
 
-  it("should transfer tokens after clone", async function () {
+  it("should transfer tokens after clone 2.", async function () {
     let tx = await clone.transfer(holder, UNIT, {from : receiver});
     let gasUsed = tx.receipt.gasUsed;
-    console.log("Second transfer after clone cost: " + gasUsed);
+    console.log("2. Transfer after clone cost: " + gasUsed);
+    let balance = await clone.balanceOf(receiver);
+    assert.equal(balance.valueOf(), 0, "Holder balance is different than 0");
+  });
+
+  it("should transfer tokens after clone 3.", async function () {
+    let tx = await clone.transfer(receiver, UNIT, {from : holder});
+    let gasUsed = tx.receipt.gasUsed;
+    console.log("3. Transfer after clone cost: " + gasUsed);
+    let holderBalance = await clone.balanceOf(holder);
+    assert.equal(holderBalance.valueOf(), 0, "Holder balance is different than 0");
+  });
+
+  it("should transfer tokens after clone 4.", async function () {
+    let tx = await clone.transfer(holder, UNIT, {from : receiver});
+    let gasUsed = tx.receipt.gasUsed;
+    console.log("4. Transfer after clone cost: " + gasUsed);
     let balance = await clone.balanceOf(receiver);
     assert.equal(balance.valueOf(), 0, "Holder balance is different than 0");
   });

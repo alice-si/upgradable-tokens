@@ -29,7 +29,6 @@ contract('Golem Network Token', function(accounts) {
   });
 
   it("should finalize sale", async function () {
-    console.log(web3.eth.blockNumber);
     let tx = await token.finalize();
   });
 
@@ -52,7 +51,7 @@ contract('Golem Network Token', function(accounts) {
   it("should migrate", async function () {
     let tx = await token.migrate(1000 * UNIT, {from: receiver});
     let gasUsed = tx.receipt.gasUsed;
-    console.log("Migration cost: " + gasUsed);
+    console.log("Migration cost per account: " + gasUsed);
   });
 
 });
