@@ -72,7 +72,7 @@ contract MigrationAgent {
         tokenSupply = Source.GolemNetworkToken(gntSourceToken).totalSupply();
     }
 
-    function safetyInvariantCheck(uint256 _value) private {
+    function safetyInvariantCheck(uint256 _value) internal {
         if (gntTargetToken == 0) throw;
         if (Source.GolemNetworkToken(gntSourceToken).totalSupply() + GNTTargetToken(gntTargetToken).totalSupply() != tokenSupply - _value) throw;
     }
@@ -108,7 +108,6 @@ contract MigrationAgent {
 
         GNTTargetToken(gntTargetToken).finalizeMigration();
 
-        gntSourceToken = 0;
         gntTargetToken = 0;
 
         tokenSupply = 0;

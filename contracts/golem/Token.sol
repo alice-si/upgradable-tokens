@@ -98,7 +98,7 @@ contract GolemNetworkToken {
     /// @notice Migrate tokens to the new token contract.
     /// @dev Required state: Operational Migration
     /// @param _value The amount of token to be migrated
-    function migrate(uint256 _value) external {
+    function migrate(uint256 _value) {
         // Abort if not in Operational Migration state.
         if (funding) throw;
         if (migrationAgent == 0) throw;

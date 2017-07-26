@@ -3,7 +3,7 @@ var MigrationAgent  = artifacts.require("./MigrationAgent.sol");
 var TargetToken  = artifacts.require("./GNTTargetToken.sol");
 
 
-contract('Golem Network Token', function(accounts) {
+contract('Golem Migration', function(accounts) {
 
   let UNIT = web3.toWei(1, "ether");
   let migrationMaster = accounts[2];
@@ -29,7 +29,7 @@ contract('Golem Network Token', function(accounts) {
   });
 
   it("should finalize sale", async function () {
-    let tx = await token.finalize();
+    await token.finalize();
   });
 
   it("should transfer tokens", async function () {
@@ -42,9 +42,11 @@ contract('Golem Network Token', function(accounts) {
 
   it("should setup migration", async function () {
     let migration = await MigrationAgent.new(token.address);
+    let receiptMigration = await web3.eth.getTransactionReceipt(migration.transactionHash);
     await token.setMigrationAgent(migration.address, {from: migrationMaster});
-    var currentBlock = web3.eth.blockNumber;
     let targetToken = await TargetToken.new(migration.address);
+    let receiptNewToken = await web3.eth.getTransactionReceipt(targetToken.transactionHash);
+    console.log("Migration one-off cost: " + (receiptMigration.gasUsed + receiptNewToken.gasUsed));
     await migration.setTargetToken(targetToken.address);
   });
 

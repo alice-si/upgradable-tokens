@@ -65,7 +65,7 @@ contract('MiniMe Token', function(accounts) {
   it("should clone token", async function () {
     let tx = await token.createCloneToken("CLONE", 18, "C", 0, true);
     let gasUsed = tx.receipt.gasUsed;
-    console.log("Cloning cost: " + gasUsed);
+    console.log("Cloning one-off cost: " + gasUsed);
     clone = MiniMeToken.at(tx.logs[0].args._cloneToken);
     let total = await clone.totalSupply.call();
     assert.equal(total.valueOf(), UNIT, "Total supply is different than 1 unit");
